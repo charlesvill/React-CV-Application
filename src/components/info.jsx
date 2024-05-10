@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { updateData } from "../utils"
 
 const info = {
   name: "",
@@ -26,7 +27,7 @@ function Publish({data, handleMode}){
     button.style.display = 'inline-block';
   }
   const hideBtn = () => {
-    const button = document.querySelector(".editBtn");
+    const button= document.querySelector(".editBtn");
     button.style.display = 'none';
   }
 
@@ -46,11 +47,9 @@ export default function GeneralInfo(){
   const [mode, setMode] = useState("edit");
   const [data, setData] = useState(info);
 
-  function updateData(e){
-    const fieldName = e.target.id;
-    const value = e.target.value;
 
-    setData({...data, [fieldName]: value })
+  function handleEdit(e){
+    updateData(e, data, setData);
   }
 
   function handleMode(e){
@@ -59,6 +58,6 @@ export default function GeneralInfo(){
   }
   return (
     // I think this is useful showing ternery operator to act as a gate for which component is triggered
-    mode === "edit" ? <Edit data={data} handleEdit={updateData} submit={handleMode}/> : <Publish data={data} handleMode={handleMode}/>
+    mode === "edit" ? <Edit data={data} handleEdit={handleEdit} submit={handleMode}/> : <Publish data={data} handleMode={handleMode}/>
   )
 }
