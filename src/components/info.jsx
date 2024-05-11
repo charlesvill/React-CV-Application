@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { updateData } from "../utils"
+import { updateData, summonBtn, hideBtn } from "../utils"
+
 
 const info = {
   name: "",
@@ -22,23 +23,22 @@ function Edit({data, handleEdit, submit}){
   )
 }
 function Publish({data, handleMode}){
-  const summonBtn = () => {
-    const button = document.querySelector(".editBtn");
-    button.style.display = 'inline-block';
+
+  const show = (e) => {
+    summonBtn(e);
   }
-  const hideBtn = () => {
-    const button= document.querySelector(".editBtn");
-    button.style.display = 'none';
+  const hide = (e) => {
+    hideBtn(e)
   }
 
   return(
-    <div onMouseOver={summonBtn} onMouseOut={hideBtn}>
+    <div onMouseOver={show} onMouseOut={hide}>
       <span>{data.name}</span>
       •
       <span>{data.phone}</span>
       •
       <span>{data.email}</span>
-      <button className="editBtn" style={{display: 'none'}} onClick={handleMode}>Edit</button>
+      <button className="editInfoBtn" style={{display: 'none'}} onClick={handleMode}>Edit</button>
     </div>
   )
 }

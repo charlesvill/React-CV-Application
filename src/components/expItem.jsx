@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateData } from "../utils";
+import { updateData, summonBtn, hideBtn } from "../utils";
 
 function EditItem({data, handleEdit, handleMode}) {
 
@@ -20,15 +20,24 @@ function EditItem({data, handleEdit, handleMode}) {
   )
 }
 
-function PublishItem({data}) {
+function PubItem({data, handleMode}) {
+
+  const [isHovered, setIsHovered] = useState(false);
   return (
-    <ul>
-     <li>{data.institution}</li>
-     <li>{data.position}</li>
-     <li>{data.description}</li>
-     <li>{data.startDate}</li>
-     <li>{data.endDate}</li>
-    </ul>
+    <>
+      <ul onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+       <li>{data.institution}</li>
+       <li>{data.position}</li>
+       <li>{data.description}</li>
+       <li>{data.startDate}</li>
+       <li>{data.endDate}</li>
+       {isHovered && (
+        <li>
+            <button onClick={handleMode}>Edit</button>
+        </li>
+       )}
+      </ul>
+    </>
   )
 }
 
@@ -45,7 +54,11 @@ export default function ItemComponent({item}){
 
   return (
     <>
-      {mode === "edit" ? <EditItem data={data} handleEdit={handleEdit} handleMode={handleMode}/> : <PubItem data={data}/>}
+      {
+        mode === "edit"
+        ? <EditItem data={data} handleEdit={handleEdit} handleMode={handleMode}/>
+        : <PubItem data={data} handleMode={handleMode}/>
+      }
     </>
   )
 
