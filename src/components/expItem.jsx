@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { updateData, summonBtn, hideBtn } from "../utils";
+import { updateData } from "../utils";
 
-function EditItem({data, handleEdit, handleMode}) {
+function EditItem({data, handleEdit, handleMode, handleDelete}) {
 
+  function deleteItem(){
+    handleDelete(data.id);
+  }
   return(
+
+    <>
       <form onSubmit={handleMode}>
          <label htmlFor="institution">Institution/Company</label>
          <input type="text" id="institution" onChange={handleEdit} value={data.institution}/>
@@ -17,6 +22,9 @@ function EditItem({data, handleEdit, handleMode}) {
          <input type="text" id="endDate" onChange={handleEdit} value={data.endDate}/>
          <button type="submit">Submit</button>
       </form>
+      <button onClick={deleteItem}>Delete</button>
+
+    </>
   )
 }
 
@@ -25,24 +33,28 @@ function PubItem({data, handleMode}) {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <>
-      <ul onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-       <li>{data.institution}</li>
-       <li>{data.position}</li>
-       <li>{data.description}</li>
-       <li>{data.startDate}</li>
-       <li>{data.endDate}</li>
+      <div>
+        <span className="h3">{data.institution}</span>
+        <div className="dateContainer">
+          <span className="offsetRightBold">{data.startDate}</span>
+          <span className="offsetRightBold">{data.endDate}</span>
+        </div>
+      </div>
+      <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+       <div>{data.position}</div>
+       <div>{data.description}</div>
        {isHovered && (
-        <li>
+        <div>
             <button onClick={handleMode}>Edit</button>
-        </li>
+        </div>
        )}
-      </ul>
+      </div>
     </>
   )
 }
 
-export default function ItemComponent({item}){
-  const[mode, setMode] = useState("edit");
+export default function ItemComponent({item, handleDelete}){
+  const[mode, setMode] = useState("publish");
   const[data, setData] = useState(item);
 
   function handleEdit(e) {
@@ -56,7 +68,7 @@ export default function ItemComponent({item}){
     <>
       {
         mode === "edit"
-        ? <EditItem data={data} handleEdit={handleEdit} handleMode={handleMode}/>
+        ? <EditItem data={data} handleEdit={handleEdit} handleMode={handleMode} handleDelete={handleDelete}/>
         : <PubItem data={data} handleMode={handleMode}/>
       }
     </>

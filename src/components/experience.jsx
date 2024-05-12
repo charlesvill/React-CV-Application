@@ -12,7 +12,7 @@ const template = {
   endDate: "",
 }
 
-function Edit({list, addToList}) {
+function Edit({list, addToList, handleMode, handleDelete}) {
   const [showForm, setShowForm] = useState(false);
   const [newEntry, setNewEntry] = useState(template);
 
@@ -40,7 +40,7 @@ function Edit({list, addToList}) {
       <ul>
         {
           list.map(entry => (
-            <li key={entry.id}><ItemComponent item={entry}/></li>
+            <li key={entry.id}><ItemComponent item={entry} handleDelete={handleDelete}/></li>
           ))
         }
       </ul>
@@ -48,39 +48,49 @@ function Edit({list, addToList}) {
       {showForm && (
               <form onSubmit={createItem}>
                <h3>New Entry</h3>
-               <label htmlFor="institution">Institution/Company</label>
-               <input type="text" id="institution" onChange={handleEdit} value={newEntry.institution}/>
-               <label htmlFor="position">Position/Title</label>
-               <input type="text" id="position" onChange={handleEdit} value={newEntry.position}/>
-               <label htmlFor="description">Responsibilities & Achievements</label>
-               <input type="text" id="description" onChange={handleEdit} value={newEntry.description}/>
-               <label htmlFor="startDate">startDate</label>
-               <input type="text" id="startDate" onChange={handleEdit} value={newEntry.startDate}/>
-               <label htmlFor="endDate">endDate</label>
-               <input type="text" id="endDate" onChange={handleEdit} value={newEntry.endDate}/>
-               <button type="submit">Submit</button>
+               <div>
+                <label htmlFor="institution">Institution/Company</label>
+                <input type="text" id="institution" onChange={handleEdit} value={newEntry.institution}/>
+               </div>
+               <div>
+                <label htmlFor="position">Position/Title</label>
+                <input type="text" id="position" onChange={handleEdit} value={newEntry.position}/>
+               </div>
+               <div>
+                <label htmlFor="description">Responsibilities & Achievements</label>
+                <input type="text" id="description" onChange={handleEdit} value={newEntry.description}/>
+               </div>
+               <div>
+                <label htmlFor="startDate">startDate</label>
+                <input type="text" id="startDate" onChange={handleEdit} value={newEntry.startDate}/>
+                <label htmlFor="endDate">endDate</label>
+                <input type="text" id="endDate" onChange={handleEdit} value={newEntry.endDate}/>
+               </div>
+                <button type="submit">Submit</button>
              </form>
       )}
+      <button onClick={handleMode}>Done</button>
     </div>
   )
 }
 
-function Publish({list}) {
-  // this one should take the list of data objs and map over them calling <ItemComponent/> passing the data
+function Publish({list, handleMode, handleDelete}) {
+  const [isHover, setIsHover] = useState(false);
 
-  function summonBtn() {
-
-  }
-
-  function hideBtn() {
-
-  }
   return(
     // this should be a <ul> instead
-    <div onMouseOver={summonBtn}>
-      {list.map((entry) => {
-        <ItemComponent item={entry}/>
-      })}
+    <div onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+      <h3>Experience</h3>
+      <ul>
+        {
+          list.map(entry => (
+            <li key={entry.id}><ItemComponent item={entry} handleDelete={handleDelete}/></li>
+          ))
+        }
+      </ul>
+      {isHover && (
+        <button onClick={handleMode}>Edit Experience</button>
+      )}
     </div>
   )
 }
@@ -95,10 +105,21 @@ export default function Experience() {
       [...data, item]
     );
   }
+  function handleMode(){
+    setMode(mode === "edit" ? "publish" : "edit");
+  }
+  function handleDelete(id){
+    setData(data.filter(item => {
+      console.log(item.id);
+      console.log(id);
+      return item.id !== id}));
+  }
 
   return (
     <div>
-      {mode === "edit" ? <Edit list={data} addToList={addToList}/> : <Publish list={data}/>}
+      {mode === "edit"
+        ? <Edit list={data} addToList={addToList} handleMode={handleMode} handleDelete={handleDelete}/>
+        : <Publish list={data} handleMode={handleMode} handleDelete={handleDelete}/>}
     </div>
   )
 }

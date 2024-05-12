@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { updateData, summonBtn, hideBtn } from "../utils"
+import { updateData } from "../utils"
 
 
 const info = {
@@ -23,22 +23,18 @@ function Edit({data, handleEdit, submit}){
   )
 }
 function Publish({data, handleMode}){
-
-  const show = (e) => {
-    summonBtn(e);
-  }
-  const hide = (e) => {
-    hideBtn(e)
-  }
+  const [isHovered, setIsHovered] = useState(false);
 
   return(
-    <div onMouseOver={show} onMouseOut={hide}>
+    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <span>{data.name}</span>
       •
       <span>{data.phone}</span>
       •
       <span>{data.email}</span>
-      <button className="editInfoBtn" style={{display: 'none'}} onClick={handleMode}>Edit</button>
+      {isHovered && (
+        <button className="editInfoBtn" onClick={handleMode}>Edit</button>
+      )}
     </div>
   )
 }
