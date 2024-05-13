@@ -13,9 +13,9 @@ function EditItem({data, handleEdit, handleMode, handleDelete}) {
          <label htmlFor="institution">Institution/Company</label>
          <input type="text" id="institution" onChange={handleEdit} value={data.institution}/>
          <label htmlFor="position">Position/Title</label>
-         <input type="text" id="position" onChange={handleEdit} value={data.position}/>
+         <input type="text" id="position" onChange={handleEdit} value={data.program}/>
          <label htmlFor="description">Responsibilities & Achievements</label>
- <input type="text" id="description" onChange={handleEdit} value={data.description}/>
+         <input type="text" id="description" onChange={handleEdit} value={data.achievements}/>
          <label htmlFor="startDate">startDate</label>
          <input type="text" id="startDate" onChange={handleEdit} value={data.startDate}/>
          <label htmlFor="endDate">endDate</label>
@@ -42,8 +42,8 @@ function PubItem({data, handleMode}) {
         </div>
       </div>
       <div className={"contentContainer"} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-       <div className={"bullet"}>{data.position}</div>
-       <div className={"bullet"}>{data.description}</div>
+       <div className={"bullet"}>{data.program}</div>
+       <div className={"bullet"}>{data.achievements}</div>
        {isHovered && (
         <div>
             <button onClick={handleMode}>Edit</button>

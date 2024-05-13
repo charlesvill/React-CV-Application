@@ -27,8 +27,10 @@ function Publish({data, handleMode}){
 
   return(
     <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-      <span>{data.name}</span>
-      •
+      <div className={"h2"}><span>
+        {data.name}
+      </span></div>
+
       <span>{data.phone}</span>
       •
       <span>{data.email}</span>

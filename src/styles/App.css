@@ -1,10 +1,51 @@
 #root {
   max-width: 1280px;
+  width: 40%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: white;
+  color: black;
 }
 
 form {
-  display: flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+}
+ ul {
+   list-style-type: none;
+ }
+ button {
+   max-width: 6rem;
+ }
+ .h2 {
+   font-weight: bold;
+   font-size: 1.5rem;
+ }
+ .h3 {
+   font-weight: bolder;
+ }
+ div{
+ }
+.horizontal{
+   display: flex;
+   justify-content: space-between;
+}
+.listItem {
+  margin: 1.5rem;
+}
+.offsetRightBold {
+  margin: .5rem;
+}
+.contentContainer {
+  text-align: left;
+}
+.bullet {
+  margin-left: 20px;
+
+}
+
+.bullet::before {
+  content: "• ";
 }
