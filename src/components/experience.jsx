@@ -46,7 +46,8 @@ function Edit({list, addToList, handleMode, handleDelete}) {
       </ul>
       {!showForm && <button onClick={handlePlus}>Add +</button>}
       {showForm && (
-              <form onSubmit={createItem}>
+        <div className={"form-container"}>
+             <form onSubmit={createItem}>
                <h3>New Entry</h3>
                <div>
                 <label htmlFor="institution">Institution/Company</label>
@@ -68,7 +69,8 @@ function Edit({list, addToList, handleMode, handleDelete}) {
                </div>
                 <button type="submit">Submit</button>
              </form>
-      )}
+        </div>
+                    )}
       <button onClick={handleMode}>Done</button>
     </div>
   )

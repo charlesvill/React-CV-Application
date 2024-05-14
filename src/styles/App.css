@@ -1,12 +1,33 @@
 #root {
   max-width: 1280px;
-  width: 40%;
+  min-width: 70%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   background-color: white;
   color: black;
 }
+/* Style for the form container */
+.form-container {
+  width: 300px; /* Adjust width as needed */
+  margin: auto; /* Center the container */
+}
+
+/* Style for form labels */
+.form-container label {
+  display: block; /* Labels will appear on separate lines */
+  text-align: left; /* Align labels to the left */
+  margin-bottom: 5px; /* Add some space between labels */
+}
+
+/* Style for form inputs */
+.form-container input {
+  width: 100%; /* Inputs will take up full width of container */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  padding: 5px; /* Add some padding for better appearance */
+  margin-bottom: 10px; /* Add some space between inputs */
+}
+
 
 form {
   display: flex;
@@ -21,10 +42,13 @@ form {
  }
  .h2 {
    font-weight: bold;
-   font-size: 1.5rem;
+   font-size: 1.2rem;
  }
  .h3 {
    font-weight: bolder;
+ }
+ .inline::after {
+   content: " • "
  }
  div{
  }
@@ -44,8 +68,4 @@ form {
 .bullet {
   margin-left: 20px;
 
-}
-
-.bullet::before {
-  content: "• ";
 }

@@ -9,7 +9,7 @@ const info = {
 }
 function Edit({data, handleEdit, submit}){
   return (
-    <div>
+    <div className={"form-container"}>
       <form onSubmit={submit}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" onChange={handleEdit} value={data.name}/>
@@ -27,13 +27,14 @@ function Publish({data, handleMode}){
 
   return(
     <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-      <div className={"h2"}><span>
-        {data.name}
-      </span></div>
-
-      <span>{data.phone}</span>
-      •
+      <div className={"h2"}>
+       <span>
+         {data.name}
+       </span>
+      </div>
+      <span className={"inline"}>{data.phone}</span>
       <span>{data.email}</span>
+
       {isHovered && (
         <button className="editInfoBtn" onClick={handleMode}>Edit</button>
       )}
@@ -45,17 +46,16 @@ export default function GeneralInfo(){
   const [mode, setMode] = useState("edit");
   const [data, setData] = useState(info);
 
-
   function handleEdit(e){
     updateData(e, data, setData);
   }
-
   function handleMode(e){
     e.preventDefault();
     setMode(mode === "edit" ? "publish" : "edit");
   }
   return (
-    // I think this is useful showing ternery operator to act as a gate for which component is triggered
-    mode === "edit" ? <Edit data={data} handleEdit={handleEdit} submit={handleMode}/> : <Publish data={data} handleMode={handleMode}/>
+    mode === "edit"
+      ? <Edit data={data} handleEdit={handleEdit} submit={handleMode}/>
+      : <Publish data={data} handleMode={handleMode}/>
   )
 }

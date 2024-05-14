@@ -7,7 +7,6 @@ function EditItem({data, handleEdit, handleMode, handleDelete}) {
     handleDelete(data.id);
   }
   return(
-
     <>
       <form onSubmit={handleMode}>
          <label htmlFor="institution">Institution/Company</label>
@@ -23,13 +22,11 @@ function EditItem({data, handleEdit, handleMode, handleDelete}) {
          <button type="submit">Submit</button>
       </form>
       <button onClick={deleteItem}>Delete</button>
-
     </>
   )
 }
 
 function PubItem({data, handleMode}) {
-
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div className={"listItem"}>
@@ -75,5 +72,4 @@ export default function ItemComponent({item, handleDelete}){
       }
     </>
   )
-
 }
